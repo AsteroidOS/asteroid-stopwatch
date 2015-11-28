@@ -7,7 +7,9 @@ A stopwatch app for [AsteroidOS](http://asteroidos.org/)
 
 ## Copyright and License
 (C) Copyright 2015 by Tim Süberkrüb
+
 Part of this code is based on "Stopwatch" (https://github.com/baleboy/stopwatch)
+
 Copyright (C) 2011 Francesco Balestrieri
 
 This application is free software: you can redistribute it and/or modify
