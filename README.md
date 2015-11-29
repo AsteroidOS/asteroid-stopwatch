@@ -3,7 +3,6 @@ A stopwatch app for [AsteroidOS](http://asteroidos.org/)
 
 ## Dependencies
 * [qml-asteroid](https://github.com/AsteroidOS/qml-asteroid)
-* quey-ui (dependency will be removed soon when qml-asteroid provides all nessecary components)
 
 ## Copyright and License
 (C) Copyright 2015 by Tim Süberkrüb

@@ -22,13 +22,11 @@
 import QtQuick 2.4
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 1.3
-import quey.ui 0.1
-import quey.watch 0.1
 import org.asteroid.controls 1.0
 import Qt.labs.settings 1.0
 
 
-WatchApplication {
+Application {
     id: app
     title: "Stopwatch"
 
@@ -64,7 +62,7 @@ WatchApplication {
             id: settingsLayer
             Rectangle {
                 anchors.fill: parent
-                color: Style.palette.background
+                color: "black"
 
                 Flickable {
                     anchors.fill: parent
@@ -74,25 +72,37 @@ WatchApplication {
                     contentHeight: childrenRect.height
 
                     Column {
-                        spacing: Style.spacing
+                        spacing: Units.dp(16)
                         anchors {
                             fill: parent
-                            topMargin: Style.padding
+                            topMargin: Units.dp(16)
                         }
 
                         Label {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: "Settings"
-                            font: Style.font.subheading
+                            font.pixelSize: Units.dp(16)
+                            color: "white"
                         }
 
-                        CheckBox {
-                            id: checkboxColorful
+                        Row {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Colorful"
-                            checked: app.colorful
-                            onCheckedChanged: app.colorful = checked
+                            spacing: Units.dp(8)
+
+                            CheckBox {
+                                id: checkboxColorful
+                                checked: app.colorful
+                                onCheckedChanged: app.colorful = checked
+                            }
+
+                            Label {
+                                text: "Colorful"
+                                font.pixelSize: Units.dp(12)
+                                color: "white"
+                            }
+
                         }
+
                     }
 
                 }
@@ -124,42 +134,42 @@ WatchApplication {
                     name: "zero"
                     PropertyChanges {
                         target: iconButton
-                        iconName: "media-play"
+                        iconName: "play"
                     }
                     PropertyChanges {
                         target: mainPage
-                        color: Style.palette.background
+                        color: "white"
                     }
                 },
                 State {
                     name: "running"
                     PropertyChanges {
                         target: iconButton
-                        iconName: "media-pause"
+                        iconName: "pause"
                     }
                     PropertyChanges {
                         target: mainPage
-                        color: app.colorful ? Style.palette.green : Style.palette.background
+                        color: app.colorful ? "#5469d5" : "white"
                     }
                 },
                 State {
                     name: "paused"
                     PropertyChanges {
                         target: iconButton
-                        iconName: "media-play"
+                        iconName: "play"
                     }
                     PropertyChanges {
                         target: mainPage
-                        color: app.colorful ? Style.palette.red : Style.palette.background
+                        color: app.colorful ? "#d55469" : "white"
                     }
                 }
             ]
 
             Label {
                 anchors.centerIn: parent
-                color: mainPage.state === "zero" || !app.colorful ? Style.palette.regular : "white"
-                font: Style.font.code
+                color: mainPage.state === "zero" || !app.colorful ? "black" : "white"
                 text: toTimeString(elapsed)
+                font.pixelSize: Units.dp(16)
             }
 
             MouseArea {
@@ -172,7 +182,7 @@ WatchApplication {
 
             IconButton {
                 id: resetButton
-                iconColor: app.colorful ? "white" : Style.palette.regular
+                iconColor: app.colorful ? "white" : "black"
                 iconName: "reload"
                 visible: mainPage.state === "paused"
 
@@ -180,7 +190,7 @@ WatchApplication {
 
                 anchors {
                     horizontalCenter: parent.horizontalCenter
-                    topMargin: Style.padding
+                    topMargin: Units.dp(16)
                     top: parent.top
                 }
 
@@ -192,7 +202,7 @@ WatchApplication {
 
             IconButton {
                 id: settingsButton
-                iconColor: Style.palette.regular
+                iconColor: "black"
                 iconName: "cog"
                 visible: mainPage.state === "zero"
 
@@ -200,7 +210,7 @@ WatchApplication {
 
                 anchors {
                     horizontalCenter: parent.horizontalCenter
-                    topMargin: Style.padding
+                    topMargin: Units.dp(8)
                     top: parent.top
                 }
 
@@ -211,15 +221,15 @@ WatchApplication {
 
             IconButton {
                 id: iconButton
-                iconName: "media-play"
-                iconColor: mainPage.state === "zero" || !app.colorful ? Style.palette.regular : "white"
+                iconName: "play"
+                iconColor: mainPage.state === "zero" || !app.colorful ? "black" : "white"
 
                 hovered: false
 
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     bottom: parent.bottom
-                    bottomMargin: Style.padding
+                    bottomMargin: Units.dp(16)
                 }
 
                 onClicked: {

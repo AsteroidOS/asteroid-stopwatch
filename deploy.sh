@@ -15,4 +15,4 @@ adb push asteroid-stopwatch.desktop /usr/share/applications/asteroid-stopwatch.d
 echo "Keep display on ..."
 adb shell mcetool -D on
 echo "Running application ..."
-adb shell XDG_RUNTIME_DIR=/tmp /usr/bin/asteroid-stopwatch --platform wayland-egl
+adb shell env QT_QUICK_CONTROLS_STYLE=Nemo XDG_RUNTIME_DIR=/tmp /usr/bin/asteroid-stopwatch --platform wayland-egl
