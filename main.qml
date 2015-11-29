@@ -183,14 +183,14 @@ Application {
             IconButton {
                 id: resetButton
                 iconColor: app.colorful ? "white" : "black"
-                iconName: "reload"
+                iconName: "refresh-empty"
                 visible: mainPage.state === "paused"
 
                 hovered: false
 
                 anchors {
                     horizontalCenter: parent.horizontalCenter
-                    topMargin: Units.dp(16)
+                    topMargin: Units.dp(8)
                     top: parent.top
                 }
 
@@ -229,7 +229,7 @@ Application {
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     bottom: parent.bottom
-                    bottomMargin: Units.dp(16)
+                    bottomMargin: Units.dp(8)
                 }
 
                 onClicked: {
