@@ -2,6 +2,6 @@
 Type=Application
 Name=Stopwatch
 Categories=Applications;
-Exec=env QT_QUICK_CONTROLS_STYLE=Nemo /usr/bin/asteroid-stopwatch
-Icon=icon-app-texteditor
+Exec=env QT_QUICK_CONTROLS_STYLE=Asteroid /usr/bin/asteroid-stopwatch
+Icon=clock
 X-Desktop-File-Install-Version=0.20

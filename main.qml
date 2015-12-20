@@ -1,6 +1,4 @@
 /*
- * Qt Quick Controls Asteroid - User interface components for AsteroidOS
- *
  * Copyright (C) 2015 Tim Süberkrüb <tim.sueberkrueb@web.de>
  * Part of this code is based on "Stopwatch" (https://github.com/baleboy/stopwatch)
  * Copyright (C) 2011 Francesco Balestrieri
@@ -23,8 +21,6 @@ import QtQuick 2.4
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 1.3
 import org.asteroid.controls 1.0
-import Qt.labs.settings 1.0
-
 
 Application {
     id: app
@@ -33,14 +29,6 @@ Application {
     property bool running
     property var previousTime
     property int elapsed: 0
-
-    property bool colorful: true
-
-    Settings {
-        id: settings
-        property alias colorful: app.colorful
-    }
-
 
     function zeroPad(n) {
         return (n < 10 ? "0" : "") + n
@@ -55,64 +43,6 @@ Application {
                 Math.floor((mod % 1000) / 100)
     }
 
-    LayerStack {
-        id: watchLayerStack
-
-        Layer {
-            id: settingsLayer
-            Rectangle {
-                anchors.fill: parent
-                color: "black"
-
-                Flickable {
-                    anchors.fill: parent
-                    interactive: false
-
-                    contentWidth: parent.width
-                    contentHeight: childrenRect.height
-
-                    Column {
-                        spacing: Units.dp(16)
-                        anchors {
-                            fill: parent
-                            topMargin: Units.dp(16)
-                        }
-
-                        Label {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Settings"
-                            font.pixelSize: Units.dp(16)
-                            color: "white"
-                        }
-
-                        Row {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            spacing: Units.dp(8)
-
-                            CheckBox {
-                                id: checkboxColorful
-                                checked: app.colorful
-                                onCheckedChanged: app.colorful = checked
-                            }
-
-                            Label {
-                                text: "Colorful"
-                                font.pixelSize: Units.dp(12)
-                                color: "white"
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-        }
-
-    }
-
     Item {
         anchors.fill: parent
 
@@ -123,7 +53,6 @@ Application {
             state: "zero"
 
             Behavior on color {
-
                 ColorAnimation {
                     duration: 200
                 }
@@ -140,6 +69,10 @@ Application {
                         target: mainPage
                         color: "white"
                     }
+                    PropertyChanges {
+                        target: elapsedLabel
+                        color: "black"
+                    }
                 },
                 State {
                     name: "running"
@@ -149,40 +82,37 @@ Application {
                     }
                     PropertyChanges {
                         target: mainPage
-                        color: app.colorful ? "#5469d5" : "white"
+                        color: "#5469d5"
                     }
                 },
                 State {
                     name: "paused"
                     PropertyChanges {
                         target: iconButton
-                        iconName: "play"
-                    }
+                        iconName: "play" }
                     PropertyChanges {
                         target: mainPage
-                        color: app.colorful ? "#d55469" : "white"
+                        color: "#d55469"
                     }
                 }
             ]
 
             Label {
+                id: elapsedLabel
                 anchors.centerIn: parent
-                color: mainPage.state === "zero" || !app.colorful ? "black" : "white"
+                color: mainPage.state === "zero" || "white"
                 text: toTimeString(elapsed)
-                font.pixelSize: Units.dp(16)
+                font.pixelSize: Units.dp(17)
             }
 
             MouseArea {
                 anchors.fill: parent
-
-                onClicked: {
-                    iconButton.clicked();
-                }
+                onClicked: iconButton.clicked();
             }
 
             IconButton {
                 id: resetButton
-                iconColor: app.colorful ? "white" : "black"
+                iconColor: "white"
                 iconName: "refresh-empty"
                 visible: mainPage.state === "paused"
 
@@ -201,28 +131,9 @@ Application {
             }
 
             IconButton {
-                id: settingsButton
-                iconColor: "black"
-                iconName: "cog"
-                visible: mainPage.state === "zero"
-
-                hovered: false
-
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    topMargin: Units.dp(8)
-                    top: parent.top
-                }
-
-                onClicked: {
-                    settingsLayer.show();
-                }
-            }
-
-            IconButton {
                 id: iconButton
                 iconName: "play"
-                iconColor: mainPage.state === "zero" || !app.colorful ? "black" : "white"
+                iconColor: mainPage.state === "zero" || "white"
 
                 hovered: false
 
@@ -247,8 +158,6 @@ Application {
                     }
                 }
             }
-
-
         }
 
         Timer {
@@ -266,7 +175,5 @@ Application {
                 elapsed += delta
             }
         }
-
     }
-
 }
