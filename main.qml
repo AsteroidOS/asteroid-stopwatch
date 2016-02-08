@@ -22,9 +22,9 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls 1.3
 import org.asteroid.controls 1.0
 
-Application {
+Item {
     id: app
-    title: "Stopwatch"
+    anchors.fill: parent
 
     property bool running
     property var previousTime
