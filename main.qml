@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2015 Tim Süberkrüb <tim.sueberkrueb@web.de>
+ * Copyright (C) 2016 Florent Revest <revestflo@gmail.com>
+ *               2015 Tim Süberkrüb <tim.sueberkrueb@web.de>
  * Part of this code is based on "Stopwatch" (https://github.com/baleboy/stopwatch)
  * Copyright (C) 2011 Francesco Balestrieri
  *
@@ -17,9 +18,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.4
+import QtQuick 2.5
 import QtGraphicalEffects 1.0
-import QtQuick.Controls 1.3
 import org.asteroid.controls 1.0
 
 Application {
@@ -35,78 +35,75 @@ Application {
 
     function toTimeString(usec) {
         var mod = Math.abs(usec)
-        return (usec < 0 ? "-" : "") +
-                (mod >= 3600000 ? Math.floor(mod / 3600000) + ':' : '') +
-                zeroPad(Math.floor((mod % 3600000) / 60000)) + ':' +
-                zeroPad(Math.floor((mod % 60000) / 1000)) + '.' +
-                Math.floor((mod % 1000) / 100)
+        if (mod >= 3600000) {      // Hours + Minutes + Seconds
+            return  '<font color=\"#FFFFFF\" size="3">' + Math.floor(mod / 3600000) + '<sup>h</sup>' + '<br></font>' +
+                    '<font color=\"#F3BFB8\" size="1">' + zeroPad(Math.floor((mod % 3600000) / 60000)) + '<sup>m</sup>' +
+                    zeroPad(Math.floor((mod % 60000) / 1000)) + '<sup>s</sup></font>'
+
+        } else if (mod >= 60000) { // Minutes + Seconds + Tenth
+            return '<font color="#FFFFFF" size="3">' + zeroPad(Math.floor((mod % 3600000) / 60000)) + '<sup>m</sup>' + '<br></font>' +
+                   '<font color="#F3BFB8" size="1">' + zeroPad(Math.floor((mod % 60000) / 1000)) + '<sup>s</sup>' +
+                   Math.floor((mod % 1000) / 100) + '</font>'
+        } else {                   // Seconds + Tenth
+            return '<font color="#FFF" size="3">' + zeroPad(Math.floor((mod % 60000) / 1000)) + '<sup>s</sup>' + '</font>' +
+                   '<font color="#F3BFB8" size="1">' + Math.floor((mod % 1000) / 100) + '</font>'
+        }
     }
 
     Item {
         anchors.fill: parent
 
-        Rectangle {
+        LinearGradient {
             id: mainPage
             anchors.fill: parent
+            start: Qt.point(0, 0)
+            end: Qt.point(0, parent.height)
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#F07060" }
+                GradientStop { position: 1.0; color: "#DD5E4E" }
+        }
 
-            state: "zero"
+        state: "zero"
+        states: [
+            State { name: "zero" },
+            State { name: "running" },
+            State { name: "paused" }
+        ]
 
-            Behavior on color {
-                ColorAnimation {
-                    duration: 200
-                }
+        Text {
+            id: elapsedLabel
+            textFormat: Text.RichText
+            anchors.centerIn: parent
+            text: toTimeString(elapsed)
+            font.pixelSize: parent.height*0.25
+            color: "#FFFFFF"
+            horizontalAlignment: Text.AlignHCenter
+
+            SequentialAnimation {
+                running: mainPage.state == "paused"
+                loops: Animation.Infinite
+                NumberAnimation { target: elapsedLabel; property: "opacity"; from: 1; to: 0; duration: 500 }
+                NumberAnimation { target: elapsedLabel; property: "opacity"; from: 0; to: 1; duration: 500 }
+                onStopped: elapsedLabel.opacity = 1
             }
+        }
 
-            states: [
-                State {
-                    name: "zero"
-                    PropertyChanges {
-                        target: iconButton
-                        iconName: "play"
-                    }
-                    PropertyChanges {
-                        target: mainPage
-                        color: "white"
-                    }
-                    PropertyChanges {
-                        target: elapsedLabel
-                        color: "black"
-                    }
-                },
-                State {
-                    name: "running"
-                    PropertyChanges {
-                        target: iconButton
-                        iconName: "pause"
-                    }
-                    PropertyChanges {
-                        target: mainPage
-                        color: "#5469d5"
-                    }
-                },
-                State {
-                    name: "paused"
-                    PropertyChanges {
-                        target: iconButton
-                        iconName: "play" }
-                    PropertyChanges {
-                        target: mainPage
-                        color: "#d55469"
+        MouseArea {
+            anchors.fill: parent
+              onClicked: {
+                    switch (mainPage.state) {
+                        case "zero":
+                        case "paused":
+                            previousTime = new Date;
+                            stopwatch.start();
+                            mainPage.state = "running";
+                            break;
+                        case "running":
+                            mainPage.state = "paused";
+                            stopwatch.stop();
+                            break;
                     }
                 }
-            ]
-
-            Label {
-                id: elapsedLabel
-                anchors.centerIn: parent
-                color: mainPage.state === "zero" || "white"
-                text: toTimeString(elapsed)
-                font.pixelSize: Units.dp(17)
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: iconButton.clicked();
             }
 
             IconButton {
@@ -126,35 +123,6 @@ Application {
                 onClicked: {
                     elapsed = 0;
                     mainPage.state = "zero"
-                }
-            }
-
-            IconButton {
-                id: iconButton
-                iconName: "play"
-                iconColor: mainPage.state === "zero" || "white"
-
-                hovered: false
-
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    bottom: parent.bottom
-                    bottomMargin: Units.dp(8)
-                }
-
-                onClicked: {
-                    switch (mainPage.state) {
-                        case "zero":
-                        case "paused":
-                            previousTime = new Date;
-                            stopwatch.start();
-                            mainPage.state = "running";
-                            break;
-                        case "running":
-                            mainPage.state = "paused";
-                            stopwatch.stop();
-                            break;
-                    }
                 }
             }
         }
