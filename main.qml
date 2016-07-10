@@ -19,7 +19,6 @@
  */
 
 import QtQuick 2.5
-import QtGraphicalEffects 1.0
 import org.asteroid.controls 1.0
 
 Application {
@@ -53,11 +52,9 @@ Application {
     Item {
         anchors.fill: parent
 
-        LinearGradient {
+        Rectangle {
             id: mainPage
             anchors.fill: parent
-            start: Qt.point(0, 0)
-            end: Qt.point(0, parent.height)
             gradient: Gradient {
                 GradientStop { position: 0.0; color: "#F07060" }
                 GradientStop { position: 1.0; color: "#DD5E4E" }
