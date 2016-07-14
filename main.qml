@@ -106,6 +106,7 @@ Application {
             IconButton {
                 id: resetButton
                 iconColor: "white"
+                pressedIconColor: "lightgrey"
                 iconName: "refresh-empty"
                 visible: mainPage.state === "paused"
 
