@@ -1,7 +1,9 @@
 [Desktop Entry]
 Type=Application
 Name=Stopwatch
+Name[de_DE]=Stoppuhr
 Name[es_ES]=Cronometro
+Name[nl_NL]=Stopwatch
 Categories=Applications;
 Exec=invoker --type=qtcomponents-qt5 /usr/bin/asteroid-stopwatch
 Icon=clock
