@@ -4,6 +4,7 @@ Name=Stopwatch
 Name[de_DE]=Stoppuhr
 Name[es_ES]=Cronometro
 Name[nl_NL]=Stopwatch
+Name[fr_FR]=Chronomètre
 Categories=Applications;
 Exec=invoker --type=qtcomponents-qt5 /usr/bin/asteroid-stopwatch
 Icon=clock
