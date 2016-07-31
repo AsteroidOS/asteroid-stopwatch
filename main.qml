@@ -56,8 +56,8 @@ Application {
             id: mainPage
             anchors.fill: parent
             gradient: Gradient {
-                GradientStop { position: 0.0; color: "#F07060" }
-                GradientStop { position: 1.0; color: "#DD5E4E" }
+                GradientStop { position: 0.0; color: "#e9856e" }
+                GradientStop { position: 1.0; color: "#d3155b" }
         }
 
         state: "zero"
