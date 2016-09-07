@@ -8,5 +8,5 @@ Name[nl_NL]=Stopwatch
 Name[pl_PL]=Stoper
 Categories=Applications;
 Exec=invoker --type=qtcomponents-qt5 /usr/bin/asteroid-stopwatch
-Icon=clock
+Icon=ios-stopwatch-outline
 X-Desktop-File-Install-Version=0.20
