@@ -107,7 +107,7 @@ Application {
                 id: resetButton
                 iconColor: "white"
                 pressedIconColor: "lightgrey"
-                iconName: "refresh-empty"
+                iconName: "ios-refresh"
                 visible: mainPage.state === "paused"
 
                 hovered: false
