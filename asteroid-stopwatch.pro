@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT += widgets qml quick
+QT += qml quick
 CONFIG += link_pkgconfig
 PKGCONFIG += qdeclarative5-boostable
 
