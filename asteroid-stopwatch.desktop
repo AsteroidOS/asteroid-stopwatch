@@ -6,6 +6,7 @@ Name[es_ES]=Cronometro
 Name[fr_FR]=Chronomètre
 Name[nl_NL]=Stopwatch
 Name[pl_PL]=Stoper
+Name[ru_RU]=секундомер
 Categories=Applications;
 Exec=invoker --type=qtcomponents-qt5 /usr/bin/asteroid-stopwatch
 Icon=ios-stopwatch-outline
