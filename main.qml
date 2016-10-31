@@ -50,15 +50,8 @@ Application {
     }
 
     Item {
+        id: mainPage
         anchors.fill: parent
-
-        Rectangle {
-            id: mainPage
-            anchors.fill: parent
-            gradient: Gradient {
-                GradientStop { position: 0.0; color: "#e9856e" }
-                GradientStop { position: 1.0; color: "#d3155b" }
-        }
 
         state: "zero"
         states: [
@@ -87,7 +80,7 @@ Application {
 
         MouseArea {
             anchors.fill: parent
-              onClicked: {
+                onClicked: {
                     switch (mainPage.state) {
                         case "zero":
                         case "paused":
@@ -101,44 +94,43 @@ Application {
                             break;
                     }
                 }
-            }
-
-            IconButton {
-                id: resetButton
-                iconColor: "white"
-                pressedIconColor: "lightgrey"
-                iconName: "ios-refresh"
-                visible: mainPage.state === "paused"
-
-                hovered: false
-
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    topMargin: Units.dp(8)
-                    top: parent.top
-                }
-
-                onClicked: {
-                    elapsed = 0;
-                    mainPage.state = "zero"
-                }
-            }
         }
 
-        Timer {
-            id: stopwatch
+        IconButton {
+            id: resetButton
+            iconColor: "white"
+            pressedIconColor: "lightgrey"
+            iconName: "ios-refresh"
+            visible: mainPage.state === "paused"
 
-            interval: 100
-            repeat:  true
-            running: false
-            triggeredOnStart: true
+            hovered: false
 
-            onTriggered: {
-                var currentTime = new Date
-                var delta = (currentTime.getTime() - previousTime.getTime())
-                previousTime = currentTime
-                elapsed += delta
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                topMargin: Units.dp(8)
+                top: parent.top
             }
+
+            onClicked: {
+                elapsed = 0;
+                mainPage.state = "zero"
+            }
+        }
+    }
+
+    Timer {
+        id: stopwatch
+
+        interval: 100
+        repeat:  true
+        running: false
+        triggeredOnStart: true
+
+        onTriggered: {
+            var currentTime = new Date
+            var delta = (currentTime.getTime() - previousTime.getTime())
+            previousTime = currentTime
+            elapsed += delta
         }
     }
 }
