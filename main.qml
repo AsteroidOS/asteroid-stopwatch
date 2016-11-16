@@ -24,6 +24,9 @@ import org.asteroid.controls 1.0
 Application {
     id: app
 
+    centerColor: "#b01c7e"
+    outerColor: "#420a2f"
+
     property bool running
     property var previousTime
     property int elapsed: 0
@@ -36,16 +39,16 @@ Application {
         var mod = Math.abs(usec)
         if (mod >= 3600000) {      // Hours + Minutes + Seconds
             return  '<font color=\"#FFFFFF\" size="3">' + Math.floor(mod / 3600000) + '<sup>h</sup>' + '<br></font>' +
-                    '<font color=\"#F3BFB8\" size="1">' + zeroPad(Math.floor((mod % 3600000) / 60000)) + '<sup>m</sup>' +
+                    '<font color=\"#CCCCF3\" size="1">' + zeroPad(Math.floor((mod % 3600000) / 60000)) + '<sup>m</sup>' +
                     zeroPad(Math.floor((mod % 60000) / 1000)) + '<sup>s</sup></font>'
 
         } else if (mod >= 60000) { // Minutes + Seconds + Tenth
             return '<font color="#FFFFFF" size="3">' + zeroPad(Math.floor((mod % 3600000) / 60000)) + '<sup>m</sup>' + '<br></font>' +
-                   '<font color="#F3BFB8" size="1">' + zeroPad(Math.floor((mod % 60000) / 1000)) + '<sup>s</sup>' +
+                   '<font color="#CCCCF3" size="1">' + zeroPad(Math.floor((mod % 60000) / 1000)) + '<sup>s</sup>' +
                    Math.floor((mod % 1000) / 100) + '</font>'
         } else {                   // Seconds + Tenth
-            return '<font color="#FFF" size="3">' + zeroPad(Math.floor((mod % 60000) / 1000)) + '<sup>s</sup>' + '</font>' +
-                   '<font color="#F3BFB8" size="1">' + Math.floor((mod % 1000) / 100) + '</font>'
+            return '<font color="#FFFFFF" size="3">' + zeroPad(Math.floor((mod % 60000) / 1000)) + '<sup>s</sup>' + '</font>' +
+                   '<font color="#CCCCF3" size="1">' + Math.floor((mod % 1000) / 100) + '</font>'
         }
     }
 

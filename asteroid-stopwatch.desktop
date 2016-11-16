@@ -10,4 +10,5 @@ Name[ru_RU]=секундомер
 Categories=Applications;
 Exec=invoker --type=qtcomponents-qt5 /usr/bin/asteroid-stopwatch
 Icon=ios-stopwatch-outline
-X-Desktop-File-Install-Version=0.20
+X-Asteroid-Center-Color=#b01c7e
+X-Asteroid-Outer-Color=#420a2f
