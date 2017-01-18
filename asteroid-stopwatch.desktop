@@ -3,14 +3,15 @@ Type=Application
 Name=Stopwatch
 Name[de_DE]=Stoppuhr
 Name[es]=Cronometro
+Name[fa]=کرونومتر
 Name[fr]=Chronomètre
 Name[ko]=초시계
 Name[nl_NL]=Stopwatch
 Name[pl]=Stoper
 Name[pt_BR]=Cronômetro
-Name[sv]=Tidtagarur
 Name[ru]=секундомер
-Name[fa]=کرونومتر
+Name[sv]=Tidtagarur
+Name[uk]=Секундомір
 Categories=Applications;
 Exec=invoker --single-instance --type=qtcomponents-qt5 /usr/bin/asteroid-stopwatch
 Icon=ios-stopwatch-outline
