@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Categories=Applications;
+Exec=invoker --single-instance --type=qtcomponents-qt5 /usr/bin/asteroid-stopwatch
+Icon=ios-stopwatch-outline
+X-Asteroid-Center-Color=#b01c7e
+X-Asteroid-Outer-Color=#420a2f
