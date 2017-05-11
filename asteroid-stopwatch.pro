@@ -12,12 +12,12 @@ lupdate_only{
 }
 
 # Needed for lupdate
-TRANSLATIONS = i18n/asteroid-stopwatch.de.ts \
+TRANSLATIONS = i18n/asteroid-stopwatch.de_DE.ts \
                i18n/asteroid-stopwatch.es.ts \
                i18n/asteroid-stopwatch.fa.ts \
                i18n/asteroid-stopwatch.fr.ts \
                i18n/asteroid-stopwatch.ko.ts \
-               i18n/asteroid-stopwatch.nl.ts \
+               i18n/asteroid-stopwatch.nl_NL.ts \
                i18n/asteroid-stopwatch.pl.ts \
                i18n/asteroid-stopwatch.pt_BR.ts \
                i18n/asteroid-stopwatch.ru.ts \
