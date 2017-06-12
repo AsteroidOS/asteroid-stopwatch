@@ -20,6 +20,7 @@
 
 import QtQuick 2.5
 import org.asteroid.controls 1.0
+import org.nemomobile.configuration 1.0
 
 Application {
     id: app
@@ -27,9 +28,21 @@ Application {
     centerColor: "#b01c7e"
     outerColor: "#420a2f"
 
-    property bool running
-    property var previousTime
-    property int elapsed: 0
+    ConfigurationValue {
+        id: previousTime
+        key: "/stopwatch/previousTime"
+        defaultValue: -1
+    }
+    ConfigurationValue {
+        id: elapsed
+        key: "/stopwatch/elapsed"
+        defaultValue: -1
+    }
+    ConfigurationValue {
+        id: running
+        key: "/stopwatch/running"
+        defaultValue: false
+    }
 
     function zeroPad(n) {
         return (n < 10 ? "0" : "") + n
@@ -56,7 +69,7 @@ Application {
         id: mainPage
         anchors.fill: parent
 
-        state: "zero"
+        state: running.value ? "running" : elapsed.value == -1 ? "zero" : "paused"
         states: [
             State { name: "zero" },
             State { name: "running" },
@@ -67,7 +80,7 @@ Application {
             id: elapsedLabel
             textFormat: Text.RichText
             anchors.centerIn: parent
-            text: toTimeString(elapsed)
+            text: toTimeString(elapsed.value)
             font.pixelSize: parent.height*0.25
             color: "#FFFFFF"
             horizontalAlignment: Text.AlignHCenter
@@ -84,18 +97,19 @@ Application {
         MouseArea {
             anchors.fill: parent
                 onClicked: {
-                    switch (mainPage.state) {
+                    console.log("from:" + mainPage.state + " " + elapsed.value + " " + running.value + " " + previousTime.value)
+                    switch(mainPage.state) {
                         case "zero":
                         case "paused":
-                            previousTime = new Date;
-                            stopwatch.start();
-                            mainPage.state = "running";
+                            var curTime = new Date
+                            previousTime.value = curTime.getTime()
+                            running.value = true
                             break;
                         case "running":
-                            mainPage.state = "paused";
-                            stopwatch.stop();
+                            running.value = false
                             break;
                     }
+                    console.log("from:" + mainPage.state + " " + elapsed.value + " " + running.value + " " + previousTime.value)
                 }
         }
 
@@ -114,26 +128,21 @@ Application {
                 top: parent.top
             }
 
-            onClicked: {
-                elapsed = 0;
-                mainPage.state = "zero"
-            }
+            onClicked: elapsed.value = -1
         }
     }
 
     Timer {
-        id: stopwatch
-
         interval: 100
         repeat:  true
-        running: false
+        running: mainPage.state == "running"
         triggeredOnStart: true
 
         onTriggered: {
             var currentTime = new Date
-            var delta = (currentTime.getTime() - previousTime.getTime())
-            previousTime = currentTime
-            elapsed += delta
+            var delta = (currentTime.getTime() - previousTime.value)
+            previousTime.value = currentTime.getTime()
+            elapsed.value += delta
         }
     }
 }
