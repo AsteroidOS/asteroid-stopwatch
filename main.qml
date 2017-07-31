@@ -18,7 +18,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.5
+import QtQuick 2.9
 import org.asteroid.controls 1.0
 import org.nemomobile.configuration 1.0
 
@@ -81,7 +81,7 @@ Application {
             textFormat: Text.RichText
             anchors.centerIn: parent
             text: toTimeString(elapsed.value)
-            font.pixelSize: parent.height*0.25
+            font.pixelSize: Dims.h(25)
             color: "#FFFFFF"
             horizontalAlignment: Text.AlignHCenter
 
@@ -97,7 +97,6 @@ Application {
         MouseArea {
             anchors.fill: parent
                 onClicked: {
-                    console.log("from:" + mainPage.state + " " + elapsed.value + " " + running.value + " " + previousTime.value)
                     switch(mainPage.state) {
                         case "zero":
                         case "paused":
@@ -109,7 +108,6 @@ Application {
                             running.value = false
                             break;
                     }
-                    console.log("from:" + mainPage.state + " " + elapsed.value + " " + running.value + " " + previousTime.value)
                 }
         }
 
@@ -124,7 +122,7 @@ Application {
 
             anchors {
                 horizontalCenter: parent.horizontalCenter
-                topMargin: Units.dp(8)
+                topMargin: Units.iconButtonMargin
                 top: parent.top
             }
 
