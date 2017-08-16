@@ -122,7 +122,7 @@ Application {
 
             anchors {
                 horizontalCenter: parent.horizontalCenter
-                topMargin: Units.iconButtonMargin
+                topMargin: Dims.iconButtonMargin
                 top: parent.top
             }
 
