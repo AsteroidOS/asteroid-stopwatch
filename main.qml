@@ -115,15 +115,7 @@ Application {
             id: resetButton
             iconName: "ios-refresh"
             visible: mainPage.state === "paused"
-
-            hovered: false
-
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-                topMargin: Dims.iconButtonMargin
-                top: parent.top
-            }
-
+            edge: Qt.TopEdge
             onClicked: elapsed.value = -1
         }
     }
