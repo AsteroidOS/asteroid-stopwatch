@@ -113,8 +113,6 @@ Application {
 
         IconButton {
             id: resetButton
-            iconColor: "white"
-            pressedIconColor: "lightgrey"
             iconName: "ios-refresh"
             visible: mainPage.state === "paused"
 
