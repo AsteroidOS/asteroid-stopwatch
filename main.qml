@@ -76,13 +76,12 @@ Application {
             State { name: "paused" }
         ]
 
-        Text {
+        Label {
             id: elapsedLabel
             textFormat: Text.RichText
             anchors.centerIn: parent
             text: toTimeString(elapsed.value)
             font.pixelSize: Dims.h(25)
-            color: "#FFFFFF"
             horizontalAlignment: Text.AlignHCenter
 
             SequentialAnimation {
