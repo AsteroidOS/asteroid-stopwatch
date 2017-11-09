@@ -114,7 +114,6 @@ Application {
             id: resetButton
             iconName: "ios-refresh"
             visible: mainPage.state === "paused"
-            edge: Qt.TopEdge
             onClicked: elapsed.value = -1
         }
     }
