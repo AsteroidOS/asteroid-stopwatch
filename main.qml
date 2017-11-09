@@ -76,13 +76,12 @@ Application {
             State { name: "paused" }
         ]
 
-        Text {
+        Label {
             id: elapsedLabel
             textFormat: Text.RichText
             anchors.centerIn: parent
             text: toTimeString(elapsed.value)
             font.pixelSize: Dims.h(25)
-            color: "#FFFFFF"
             horizontalAlignment: Text.AlignHCenter
 
             SequentialAnimation {
@@ -113,19 +112,9 @@ Application {
 
         IconButton {
             id: resetButton
-            iconColor: "white"
-            pressedIconColor: "lightgrey"
             iconName: "ios-refresh"
             visible: mainPage.state === "paused"
-
-            hovered: false
-
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-                topMargin: Dims.iconButtonMargin
-                top: parent.top
-            }
-
+            edge: Qt.TopEdge
             onClicked: elapsed.value = -1
         }
     }
