@@ -6,7 +6,7 @@
     <message>
         <location filename="asteroid-stopwatch.desktop.h" line="5"/>
         <source>Stopwatch</source>
-        <translation></translation>
+        <translation>წამზომი</translation>
     </message>
 </context>
 </TS>
