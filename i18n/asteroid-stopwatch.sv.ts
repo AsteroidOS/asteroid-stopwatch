@@ -2,11 +2,18 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="sv">
 <context>
+    <name></name>
+    <message id="id-app-launcher-name">
+        <location filename="asteroid-stopwatch.desktop.h" line="6"/>
+        <source>Stopwatch</source>
+        <translation type="unfinished">Tidtagarur</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
-        <location filename="asteroid-stopwatch.desktop.h" line="5"/>
         <source>Stopwatch</source>
-        <translation>Tidtagarur</translation>
+        <translation type="vanished">Tidtagarur</translation>
     </message>
 </context>
 </TS>
