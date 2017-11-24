@@ -6,14 +6,7 @@
     <message id="id-app-launcher-name">
         <location filename="asteroid-stopwatch.desktop.h" line="6"/>
         <source>Stopwatch</source>
-        <translation type="unfinished">Süreölçer</translation>
-    </message>
-</context>
-<context>
-    <name>QObject</name>
-    <message>
-        <source>Stopwatch</source>
-        <translation type="vanished">Süreölçer</translation>
+        <translation>Süreölçer</translation>
     </message>
 </context>
 </TS>
