@@ -6,7 +6,7 @@
     <message id="id-app-launcher-name">
         <location filename="asteroid-stopwatch.desktop.h" line="6"/>
         <source>Stopwatch</source>
-        <translation></translation>
+        <translation>Cronómetro</translation>
     </message>
 </context>
 </TS>
