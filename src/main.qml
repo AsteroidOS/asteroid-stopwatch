@@ -25,8 +25,8 @@ import Nemo.Configuration 1.0
 Application {
     id: app
 
-    centerColor: "#b01c7e"
-    outerColor: "#420a2f"
+    centerColor: "#9800A6"
+    outerColor: "#0C0009"
 
     ConfigurationValue {
         id: previousTime
