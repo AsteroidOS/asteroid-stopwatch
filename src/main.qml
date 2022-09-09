@@ -114,6 +114,11 @@ Application {
             id: resetButton
             iconName: "ios-refresh"
             visible: mainPage.state === "paused"
+            anchors { 
+                bottom: parent.bottom
+                horizontalCenter: parent.horizontalCenter
+                bottomMargin: Dims.iconButtonMargin
+            }
             onClicked: elapsed.value = -1
         }
     }
