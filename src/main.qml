@@ -78,6 +78,7 @@ Application {
 
         Label {
             id: elapsedLabel
+            clip: false
             textFormat: Text.RichText
             anchors.centerIn: parent
             text: toTimeString(elapsed.value)
