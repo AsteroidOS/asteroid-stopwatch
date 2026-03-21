@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2016 Florent Revest <revestflo@gmail.com>
+ * Copyright (C) 2026 Timo Könnecke <github.com/moWerk>
+ *               2016 Florent Revest <revestflo@gmail.com>
  *               2015 Tim Süberkrüb <tim.sueberkrueb@web.de>
  * Part of this code is based on "Stopwatch" (https://github.com/baleboy/stopwatch)
  * Copyright (C) 2011 Francesco Balestrieri
@@ -111,16 +112,26 @@ Application {
                 }
         }
 
-        IconButton {
-            id: resetButton
-            iconName: "ios-refresh"
+        Item {
             visible: mainPage.state === "paused"
-            anchors { 
+            anchors {
+                top: elapsedLabel.bottom
                 bottom: parent.bottom
-                horizontalCenter: parent.horizontalCenter
-                bottomMargin: Dims.iconButtonMargin
+                left: parent.left
+                right: parent.right
             }
-            onClicked: elapsed.value = -1
+
+            Icon {
+                anchors.centerIn: parent
+                name: "ios-refresh"
+                width: Dims.l(24)
+                height: Dims.l(24)
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: elapsed.value = -1
+            }
         }
     }
 
