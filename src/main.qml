@@ -53,63 +53,106 @@ Application {
         }
     }
 
-    Item {
-        id: mainPage
+    function resetAll() {
+        Stopwatch.reset()
+        pageView.currentIndex = 0
+    }
+
+    ListView {
+        id: pageView
         anchors.fill: parent
+        orientation: ListView.Horizontal
+        snapMode: ListView.SnapOneItem
+        highlightRangeMode: ListView.StrictlyEnforceRange
+        flickDeceleration: 5000
+        flickableDirection: Flickable.HorizontalFlick
+        boundsBehavior: Flickable.StopAtBounds
+        model: 2
 
-        Label {
-            id: elapsedLabel
-            clip: false
-            textFormat: Text.RichText
-            anchors.centerIn: parent
-            text: toTimeString(Stopwatch.elapsed)
-            font.pixelSize: Dims.h(25)
-            horizontalAlignment: Text.AlignHCenter
+        delegate: Item {
+            width: pageView.width
+            height: pageView.height
 
-            SequentialAnimation {
-                running: app.swState == "paused"
-                loops: Animation.Infinite
-                NumberAnimation { target: elapsedLabel; property: "opacity"; from: 1; to: 0; duration: 500 }
-                NumberAnimation { target: elapsedLabel; property: "opacity"; from: 0; to: 1; duration: 500 }
-                onStopped: elapsedLabel.opacity = 1
-            }
-        }
+            Item {
+                anchors.fill: parent
+                visible: index === 0
 
-        MouseArea {
-            anchors.fill: parent
-                onClicked: {
-                    switch(app.swState) {
-                        case "zero":
-                        case "paused":
-                            Stopwatch.start()
-                            break;
-                        case "running":
-                            Stopwatch.stop()
-                            break;
+                Label {
+                    id: elapsedLabel
+                    clip: false
+                    textFormat: Text.RichText
+                    anchors.centerIn: parent
+                    text: toTimeString(Stopwatch.elapsed)
+                    font.pixelSize: Dims.h(25)
+                    horizontalAlignment: Text.AlignHCenter
+
+                    SequentialAnimation {
+                        running: app.swState == "paused"
+                        loops: Animation.Infinite
+                        NumberAnimation { target: elapsedLabel; property: "opacity"; from: 1; to: 0; duration: 500 }
+                        NumberAnimation { target: elapsedLabel; property: "opacity"; from: 0; to: 1; duration: 500 }
+                        onStopped: elapsedLabel.opacity = 1
                     }
                 }
-        }
 
-        Item {
-            visible: app.swState === "paused"
-            anchors {
-                top: elapsedLabel.bottom
-                bottom: parent.bottom
-                left: parent.left
-                right: parent.right
+                MouseArea {
+                    anchors.fill: parent
+                        onClicked: {
+                            switch(app.swState) {
+                                case "zero":
+                                case "paused":
+                                    Stopwatch.start()
+                                    break;
+                                case "running":
+                                    Stopwatch.stop()
+                                    break;
+                            }
+                        }
+                }
+
+                Item {
+                    visible: app.swState === "paused"
+                    anchors {
+                        top: elapsedLabel.bottom
+                        bottom: parent.bottom
+                        left: parent.left
+                        right: parent.right
+                    }
+
+                    Icon {
+                        anchors.centerIn: parent
+                        name: "ios-refresh"
+                        width: Dims.l(24)
+                        height: Dims.l(24)
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: Stopwatch.reset()
+                    }
+                }
             }
 
-            Icon {
-                anchors.centerIn: parent
-                name: "ios-refresh"
-                width: Dims.l(24)
-                height: Dims.l(24)
-            }
-
-            MouseArea {
+            LapPage {
                 anchors.fill: parent
-                onClicked: Stopwatch.reset()
+                visible: index === 1
+                elapsedMs: Stopwatch.elapsed
+                swState: app.swState
+                lapList: Stopwatch.laps
+                onLapRecorded: Stopwatch.recordLap()
             }
         }
+    }
+
+    PageDot {
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            bottom: parent.bottom
+            bottomMargin: Dims.h(2)
+        }
+        height: Dims.h(2)
+        dotNumber: 2
+        currentIndex: pageView.currentIndex
+        visible: !(app.swState === "paused" && pageView.currentIndex === 0)
     }
 }
