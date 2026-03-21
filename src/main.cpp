@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2017 - Florent Revest <revestflo@gmail.com>
+ * Copyright (C) 2026 Timo Könnecke <github.com/moWerk>
+ *               2017 Florent Revest <revestflo@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +17,12 @@
  */
 
 #include <asteroidapp.h>
+#include "StopwatchController.h"
 
 int main(int argc, char *argv[])
 {
+    qmlRegisterSingletonType<StopwatchController>(
+        "org.asteroid.stopwatch", 1, 0, "Stopwatch",
+        StopwatchController::qmlInstance);
     return AsteroidApp::main(argc, argv);
 }

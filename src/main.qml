@@ -21,7 +21,7 @@
 
 import QtQuick 2.9
 import org.asteroid.controls 1.0
-import Nemo.Configuration 1.0
+import org.asteroid.stopwatch 1.0
 
 Application {
     id: app
@@ -29,21 +29,8 @@ Application {
     centerColor: "#9800A6"
     outerColor: "#0C0009"
 
-    ConfigurationValue {
-        id: previousTime
-        key: "/stopwatch/previousTime"
-        defaultValue: -1
-    }
-    ConfigurationValue {
-        id: elapsed
-        key: "/stopwatch/elapsed"
-        defaultValue: -1
-    }
-    ConfigurationValue {
-        id: running
-        key: "/stopwatch/running"
-        defaultValue: false
-    }
+    property string swState: Stopwatch.running ? "running"
+                           : Stopwatch.elapsed < 0 ? "zero" : "paused"
 
     function zeroPad(n) {
         return (n < 10 ? "0" : "") + n
@@ -70,24 +57,17 @@ Application {
         id: mainPage
         anchors.fill: parent
 
-        state: running.value ? "running" : elapsed.value == -1 ? "zero" : "paused"
-        states: [
-            State { name: "zero" },
-            State { name: "running" },
-            State { name: "paused" }
-        ]
-
         Label {
             id: elapsedLabel
             clip: false
             textFormat: Text.RichText
             anchors.centerIn: parent
-            text: toTimeString(elapsed.value)
+            text: toTimeString(Stopwatch.elapsed)
             font.pixelSize: Dims.h(25)
             horizontalAlignment: Text.AlignHCenter
 
             SequentialAnimation {
-                running: mainPage.state == "paused"
+                running: app.swState == "paused"
                 loops: Animation.Infinite
                 NumberAnimation { target: elapsedLabel; property: "opacity"; from: 1; to: 0; duration: 500 }
                 NumberAnimation { target: elapsedLabel; property: "opacity"; from: 0; to: 1; duration: 500 }
@@ -98,22 +78,20 @@ Application {
         MouseArea {
             anchors.fill: parent
                 onClicked: {
-                    switch(mainPage.state) {
+                    switch(app.swState) {
                         case "zero":
                         case "paused":
-                            var curTime = new Date
-                            previousTime.value = curTime.getTime()
-                            running.value = true
+                            Stopwatch.start()
                             break;
                         case "running":
-                            running.value = false
+                            Stopwatch.stop()
                             break;
                     }
                 }
         }
 
         Item {
-            visible: mainPage.state === "paused"
+            visible: app.swState === "paused"
             anchors {
                 top: elapsedLabel.bottom
                 bottom: parent.bottom
@@ -130,22 +108,8 @@ Application {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: elapsed.value = -1
+                onClicked: Stopwatch.reset()
             }
-        }
-    }
-
-    Timer {
-        interval: 100
-        repeat:  true
-        running: mainPage.state == "running"
-        triggeredOnStart: true
-
-        onTriggered: {
-            var currentTime = new Date
-            var delta = (currentTime.getTime() - previousTime.value)
-            previousTime.value = currentTime.getTime()
-            elapsed.value += delta
         }
     }
 }
