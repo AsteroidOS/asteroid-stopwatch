@@ -4,7 +4,7 @@ set_target_properties(asteroid-stopwatch PROPERTIES PREFIX "")
 target_link_libraries(
 	asteroid-stopwatch
 	PUBLIC
-		Asteroid::AsteroidApp
+		Asteroid::AsteroidApp6
 )
 
 install(
