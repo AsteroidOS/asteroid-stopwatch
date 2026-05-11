@@ -21,12 +21,16 @@ ecm_find_qmlmodule(Nemo.Configuration 1.0)
 
 add_subdirectory(src)
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/asteroid-stopwatch.in
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/asteroid-stopwatch.in
 	${CMAKE_BINARY_DIR}/asteroid-stopwatch
-	@ONLY)
+	@ONLY
+)
 
-install(PROGRAMS ${CMAKE_BINARY_DIR}/asteroid-stopwatch
-	DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(
+	PROGRAMS ${CMAKE_BINARY_DIR}/asteroid-stopwatch
+	DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
 build_translations(i18n)
 generate_desktop(${CMAKE_SOURCE_DIR} asteroid-stopwatch)
