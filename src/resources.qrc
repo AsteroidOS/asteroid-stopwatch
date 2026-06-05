@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>main.qml</file>
-        <file>LapPage.qml</file>
-    </qresource>
-</RCC>

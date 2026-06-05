@@ -1,5 +1,10 @@
-add_library(asteroid-stopwatch main.cpp StopwatchController.cpp resources.qrc)
+add_library(asteroid-stopwatch main.cpp StopwatchController.cpp)
 set_target_properties(asteroid-stopwatch PROPERTIES PREFIX "")
+
+asteroid_app_qml_module(asteroid-stopwatch
+	main.qml
+	LapPage.qml
+)
 
 target_link_libraries(
 	asteroid-stopwatch
